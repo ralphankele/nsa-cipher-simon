@@ -5,6 +5,14 @@
 
 #include "simon.h"
 
+uint64_t S(uint64_t state, int amount){
+    return 0;
+}
+
+uint64_t F(unit64_t state){
+    return 0;
+}
+
 int keySchedule(){
     return 0;
 }
