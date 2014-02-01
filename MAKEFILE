@@ -1,0 +1,17 @@
+CC=gcc
+CFLAGS=-I. -Wall
+SOURCES = simon.h
+OBJECTS = $(SOURCES:.c=.o)
+EXECUTABLE=simon
+
+%.o: %.c $(SOURCES)
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+$(EXECUTABLE): $(OBJECTS)
+	$(CC) -o $@ $^ $(CFLAGS)
+
+.PHONY: clean
+
+clean:
+	rm -rf *.o $(EXECUTABLE)
+
