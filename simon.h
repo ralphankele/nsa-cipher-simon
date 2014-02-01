@@ -68,6 +68,11 @@ int encryptRounds(uint64_t plaintext, uint64_t ciphertext, uint64_t key, int rou
 int decrypt(uint64_t plaintext, uint64_t ciphertext, uint64_t key);
 int decryptRounds(uint64_t plaintext, uint64_t ciphertext, uint64_t key, int rounds);
 
+//Helper Functions
+
+uint64_t S();
+unit64_t F();
+
 //Test-Functions
 //TODO
 
