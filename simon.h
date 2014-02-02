@@ -10,7 +10,12 @@
 //Definitions
 #define WORD_SIZE 16
 #define KEY_WORDS 4
-#define CONST_C 
+
+#if (BLOCK_SIZE == 64)
+    #define WORD_MASK (0xffffffffffffffffull)
+#else
+    #define WORD_MASK ((0x1ull << (BLOCK_SIZE&63)) - 1)
+#endif
 
 #if (WORD_SIZE == 16)
     #define ROUNDS (32)
@@ -69,8 +74,8 @@ int decrypt(uint64_t plaintext, uint64_t ciphertext, uint64_t key);
 int decryptRounds(uint64_t plaintext, uint64_t ciphertext, uint64_t key, int rounds);
 
 //Helper Functions
-uint64_t S();
-uint64_t F();
+uint64_t S(uint64_t state, int distance);
+uint64_t F(uint64_t state);
 
 //Test-Functions
 //TODO

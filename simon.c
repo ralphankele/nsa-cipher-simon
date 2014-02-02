@@ -5,8 +5,13 @@
 
 #include "simon.h"
 
-uint64_t S(uint64_t state, int amount){
-    return 0;
+uint64_t S(uint64_t state, int distance){
+    if(distance > WORD_SIZE || distance < - WORD_SIZE)
+        return -1;
+
+    return (distance > 0) ? 
+    ((state << distance) | (state >> (WORD_SIZE-distance))) & WORD_MASK : 
+    ((state >> (-distance)) | (state << (WORD_SIZE+distance))) & WORD_MASK;
 }
 
 uint64_t F(unit64_t state){
