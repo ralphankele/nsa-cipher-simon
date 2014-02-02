@@ -18,8 +18,15 @@ uint64_t F(unit64_t state){
     return (S(state, 1) & S(state, 8)) ^ S(state, 2);
 }
 
-int keySchedule(){
-    return 0;
+void keySchedule(){
+    uint64_t tmp;
+    for(int i = KEY_WORDS; i < ROUNDS; ++i){
+        tmp = S(key[i-1], -3);
+        if(KEY_WORDS == 4)
+            tmp ^= key[i-3];
+        tmp ^= S(tmp, -1);
+        key[i] = !key[i-KEY_WORDS] ^ tmp ^ z[CONST_J][(i-KEY_WORDS) % 62] ^ 3;
+    }
 }
 
 void encrypt(uint64_t left, uint64_t right){

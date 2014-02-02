@@ -67,7 +67,7 @@ uint64_t z[5][62] = {
 uint64_t key[ROUNDS] = { 0 };
 
 //Functions
-int keySchedule();
+void keySchedule();
 void encrypt(uint64_t left, uint64_t right);
 void encryptRounds(uint64_t left, uint64_t right, int rounds);
 void decrypt(uint64_t left, uint64_t right);
