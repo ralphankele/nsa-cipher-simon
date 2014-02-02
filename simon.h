@@ -64,14 +64,14 @@ uint64_t z[5][62] = {
     {1,1,0,1,1,0,1,1,1,0,1,0,1,1,0,0,0,1,1,0,0,1,0,1,1,1,1,0,0,0,0,0,0,1,0,0,1,0,0,0,1,0,1,0,0,1,1,1,0,0,1,1,0,1,0,0,0,0,1,1,1,1},
     {1,1,0,1,0,0,0,1,1,1,1,0,0,1,1,0,1,0,1,1,0,1,1,0,0,0,1,0,0,0,0,0,0,1,0,1,1,1,0,0,0,0,1,1,0,0,1,0,1,0,0,1,0,0,1,1,1,0,1,1,1,1}
 };
-uint64_t k[ROUNDS] = { 0 };
+uint64_t key[ROUNDS] = { 0 };
 
 //Functions
 int keySchedule();
-int encrypt(uint64_t plaintext, uint64_t ciphertext, uint64_t key);
-int encryptRounds(uint64_t plaintext, uint64_t ciphertext, uint64_t key, int rounds);
-int decrypt(uint64_t plaintext, uint64_t ciphertext, uint64_t key);
-int decryptRounds(uint64_t plaintext, uint64_t ciphertext, uint64_t key, int rounds);
+void encrypt(uint64_t left, uint64_t right);
+void encryptRounds(uint64_t left, uint64_t right, int rounds);
+void decrypt(uint64_t left, uint64_t right);
+void decryptRounds(uint64_t left, uint64_t right, int rounds);
 
 //Helper Functions
 uint64_t S(uint64_t state, int distance);

@@ -22,18 +22,23 @@ int keySchedule(){
     return 0;
 }
 
-int encrypt(uint64_t plaintext, uint64_t ciphertext, uint64_t key){
-    return encryptRounds(plaintext, ciphertext, key, ROUNDS);
+void encrypt(uint64_t left, uint64_t right){
+    encryptRounds(left, right, ROUNDS);
 }
 
-int encryptRounds(uint64_t plaintext, uint64_t ciphertext, uint64_t key, int rounds){
-    return 0;
+void encryptRounds(uint64_t left, uint64_t right, int rounds){
+    uint64_t tmp;
+    for(int i = 0; i < rounds; ++i){
+        tmp = left;
+        left = right ^ F(left) ^ key[i];
+        right = tmp;
+    }
 }
 
-int decrypt(uint64_t plaintext, uint64_t ciphertext, uint64_t key){
-    return decryptRounds(plaintext, ciphertext, key, ROUNDS);
+void decrypt(uint64_t left, uint64_t right){
+    decryptRounds(left, right, ROUNDS);
 }
 
-int decryptRounds(uint64_t plaintext, uint64_t ciphertext, uint64_t key, int rounds){
-    return 0;
+void decryptRounds(uint64_t left, uint64_t right, int rounds){
+
 }
