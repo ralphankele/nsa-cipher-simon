@@ -1,5 +1,5 @@
 /**
- * Kommentar
+ * Source code base on code from: https://github.com/mmeh/simon-speck-cryptanalysis
  *
 */
 #include <stdlib.h>
@@ -8,7 +8,7 @@
 #define __SIMON_H__
 
 //Definitions
-#define WORD_SIZE 16
+#define WORD_SIZE 32
 #define KEY_WORDS 4
 
 #if (WORD_SIZE == 64)
@@ -16,6 +16,8 @@
 #else
     #define WORD_MASK ((0x1ull << (WORD_SIZE&63)) - 1)
 #endif
+
+#define CONST_C ((0xffffffffffffffffull ^ 0x3ull) & WORD_MASK)
 
 #if (WORD_SIZE == 16)
     #define ROUNDS (32)
@@ -59,10 +61,10 @@
 
 //Functions
 void keySchedule();
-void encrypt(uint64_t left, uint64_t right);
-void encryptRounds(uint64_t left, uint64_t right, int rounds);
-void decrypt(uint64_t left, uint64_t right);
-void decryptRounds(uint64_t left, uint64_t right, int rounds);
+void encrypt(uint64_t* left, uint64_t* right);
+void encryptRounds(uint64_t* left, uint64_t* right, int rounds);
+void decrypt(uint64_t* left, uint64_t* right);
+void decryptRounds(uint64_t* left, uint64_t* right, int rounds);
 
 //Helper Functions
 uint64_t S(uint64_t state, int distance);

@@ -1,5 +1,5 @@
 /**
- * Kommentar
+ * Source code base on code from: https://github.com/mmeh/simon-speck-cryptanalysis
  *
 */
 
@@ -35,34 +35,39 @@ void keySchedule(){
         if(KEY_WORDS == 4)
             tmp ^= key[i-3];
         tmp ^= S(tmp, -1);
-        key[i] = !key[i-KEY_WORDS] ^ tmp ^ z[CONST_J][(i-KEY_WORDS) % 62] ^ 3;
+        //key[i] = !key[i-KEY_WORDS] ^ tmp ^ z[CONST_J][(i-KEY_WORDS) % 62] ^ 3;
+        key[i] = key[i-KEY_WORDS] ^ z[CONST_J][(i-KEY_WORDS) % 62] ^ tmp ^ CONST_C;
     }
+    
+    for (int i = 0; i < ROUNDS; ++i)
+        printf("%llx\n", key[i]);
+    printf("\n\n");
 }
 
-void encrypt(uint64_t left, uint64_t right){
+void encrypt(uint64_t* left, uint64_t* right){
     encryptRounds(left, right, ROUNDS);
 }
 
-void encryptRounds(uint64_t left, uint64_t right, int rounds){
+void encryptRounds(uint64_t* left, uint64_t* right, int rounds){
     uint64_t tmp;
     for(int i = 0; i < rounds; ++i){
-        tmp = left;
-        left = right ^ F(left) ^ key[i];
-        right = tmp;
-        printf("L: %llx, R: %llx \n", left, right);
+        tmp = *left;
+        *left = *right ^ F(*left) ^ key[i];
+        *right = tmp;
+        printf("L: %llx, R: %llx \n", *left, *right);
     }
 }
 
-void decrypt(uint64_t left, uint64_t right){
+void decrypt(uint64_t* left, uint64_t* right){
     decryptRounds(left, right, ROUNDS);
 }
 
-void decryptRounds(uint64_t left, uint64_t right, int rounds){
+void decryptRounds(uint64_t* left, uint64_t* right, int rounds){
     uint64_t tmp;
     for(int i = 0; i < rounds; ++i){
-        tmp = right;
-        right = left ^ F(right) ^ key[ROUNDS-i-1];
-        left = tmp;
+        tmp = *right;
+        *right = *left ^ F(*right) ^ key[ROUNDS-i-1];
+        *left = tmp;
     }
 }
 
@@ -203,7 +208,7 @@ int test_vectors(){
     keySchedule();
     
     printf("L: %llx, R: %llx \n", L, R);
-    encrypt(L, R);
+    encrypt(&L, &R);
 
     if(L != ENC_L || R != ENC_R)
         return -1;
