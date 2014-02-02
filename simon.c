@@ -4,6 +4,7 @@
 */
 
 #include "simon.h"
+#include <stdio.h>
 
 uint64_t z[5][62] = {
     {1,1,1,1,1,0,1,0,0,0,1,0,0,1,0,1,0,1,1,0,0,0,0,1,1,1,0,0,1,1,0,1,1,1,1,1,0,1,0,0,0,1,0,0,1,0,1,0,1,1,0,0,0,0,1,1,1,0,0,1,1,0},
@@ -48,6 +49,7 @@ void encryptRounds(uint64_t left, uint64_t right, int rounds){
         tmp = left;
         left = right ^ F(left) ^ key[i];
         right = tmp;
+        printf("L: %llx, R: %llx \n", left, right);
     }
 }
 
@@ -82,6 +84,9 @@ void decryptRounds(uint64_t left, uint64_t right, int rounds){
 
 int test_vectors(){
     uint64_t R, L, ENC_R, ENC_L;
+
+    printf("WORD_SIZE: %d, KEY_WORDS: %d\n", WORD_SIZE, KEY_WORDS);
+
 
     // Simon32/64
     if (WORD_SIZE == 16 && KEY_WORDS == 4) {
@@ -196,6 +201,8 @@ int test_vectors(){
     }
 
     keySchedule();
+    
+    printf("L: %llx, R: %llx \n", L, R);
     encrypt(L, R);
 
     if(L != ENC_L || R != ENC_R)
