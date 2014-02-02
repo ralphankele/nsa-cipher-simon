@@ -1,17 +1,28 @@
-CC=gcc
-CFLAGS=-I. -Wall
-SOURCES = simon.h
-OBJECTS = $(SOURCES:.c=.o)
-EXECUTABLE=simon
+CXX = gcc
+CXXFLAGS = -c -Wall -g
+LDFLAGS =
+SOURCES = $(wildcard *.c)
+OBJECTS = ${SOURCES:.c=.o}
+TITLE = simon
+ARCHIVE = $(TITLE).tar.gz
 
-%.o: %.c $(SOURCES)
-	$(CC) -c -o $@ $< $(CFLAGS)
+.PHONY : all clean valgrind archive
 
-$(EXECUTABLE): $(OBJECTS)
-	$(CC) -o $@ $^ $(CFLAGS)
+all: $(TITLE)
 
-.PHONY: clean
+$(TITLE) : $(OBJECTS)
+	$(CXX) $(LDFLAGS) -o $@ $(OBJECTS)
 
-clean:
-	rm -rf *.o $(EXECUTABLE)
+%.o : %.c 
+	$(CXX) $(CXXFLAGS) -o $@ $< -MMD -MF ./$@.d
 
+clean :
+	rm -f *.o *.gch $(TITLE) *.d
+  
+valgrind : $(TITLE)
+	valgrind --tool=memcheck --leak-check=yes ./$< $(P0) $(P1)
+
+archive :
+	tar cfz $(ARCHIVE) *.cpp *.h *.pdf $(TITLE)
+
+-include $(wildcard ./*.d)
