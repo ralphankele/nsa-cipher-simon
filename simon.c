@@ -15,7 +15,7 @@ uint64_t S(uint64_t state, int distance){
 }
 
 uint64_t F(unit64_t state){
-    return 0;
+    return (S(state, 1) & S(state, 8)) ^ S(state, 2);
 }
 
 int keySchedule(){
