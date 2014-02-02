@@ -40,5 +40,11 @@ void decrypt(uint64_t left, uint64_t right){
 }
 
 void decryptRounds(uint64_t left, uint64_t right, int rounds){
-
+    uint64_t tmp;
+    for(int i = 0; i < rounds; ++i){
+        tmp = right;
+        right = left ^ F(right) ^ key[ROUNDS-i-1];
+        left = tmp;
+    }
 }
+
