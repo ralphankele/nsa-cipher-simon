@@ -13,13 +13,24 @@
 // OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 #include "simon.h"
+#include "attack.h"
 #include <stdio.h>
 
 int main(){
 
-    printf("Testing Simon%d/%d: \n", WORD_SIZE*2, WORD_SIZE*KEY_WORDS);
+    /*printf("Testing Simon%d/%d: \n", WORD_SIZE*2, WORD_SIZE*KEY_WORDS);
     if(test_vectors() != 0)
         printf("Encryption failed!\n");
-    printf("Encryption ok!\n");
+    printf("Encryption ok!\n");*/
+    /*char a[WORD_SIZE +1], b[WORD_SIZE +1];
+
+    for(int i = 0; i < WORD_SIZE; i++){
+        a[i] = '0';
+        b[i] = '0';
+    }
+    a[0] = '1';
+
+    findImpossibleDifferential(a, b);*/
+    
     return 0;
 }

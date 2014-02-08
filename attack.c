@@ -12,3 +12,18 @@
 // ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 // OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
+#include "attack.h"
+#include <stdio.h>
+
+int findImpossibleDifferential(char* left, char* right){
+    /*int i = 0;
+    while(left[i++] != '\0'){
+        printf("i: %d a: %c \n", i-1, left[i-1]);
+    }*/
+    return 0;
+}
+
+int impossibleDifferentialAttack(){
+    return 0;
+}
+

@@ -15,5 +15,12 @@
 #ifndef __ATTACK_H__
 #define __ATTACK_H__
 
+//Functions
+int findImpossibleDifferential(char* left, char* right);
+int impossibleDifferentialAttack();
+
+//Helper Functions
+
+//Test-Functions
 
 #endif
