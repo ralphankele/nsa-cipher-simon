@@ -18,10 +18,10 @@
 
 int main(){
 
-    /*printf("Testing Simon%d/%d: \n", WORD_SIZE*2, WORD_SIZE*KEY_WORDS);
+    printf("Testing Simon%d/%d: \n", WORD_SIZE*2, WORD_SIZE*KEY_WORDS);
     if(test_vectors() != 0)
         printf("Encryption failed!\n");
-    printf("Encryption ok!\n");*/
+    printf("Encryption ok!\n");
     /*char a[WORD_SIZE +1], b[WORD_SIZE +1];
 
     for(int i = 0; i < WORD_SIZE; i++){
@@ -31,6 +31,8 @@ int main(){
     a[0] = '1';
 
     findImpossibleDifferential(a, b);*/
+    
+    impossibleDifferentialAttack();
     
     return 0;
 }

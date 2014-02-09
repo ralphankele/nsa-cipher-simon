@@ -13,7 +13,10 @@
 // OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 #include "attack.h"
+#include "simon.h"
 #include <stdio.h>
+
+//extern uint64_t key[ROUNDS];
 
 int findImpossibleDifferential(char* left, char* right){
     /*int i = 0;
@@ -24,6 +27,21 @@ int findImpossibleDifferential(char* left, char* right){
 }
 
 int impossibleDifferentialAttack(){
+    uint64_t aLeft, aRight, bLeft, bRight;
+
+    printf("test generate Key: \n");
+    generateKey();
+    
+    /*for(int i = 0; i < ROUNDS; i++){
+        printf("key: %llx \n", key[i]);
+    }*/
+    
+    int numberOfRounds = 10; 
+    aLeft = 0x6565;
+    aRight = 0x6877;
+    encryptRounds(&aLeft, &aRight, numberOfRounds);
+    //encryptRounds(&bLeft, &bRight, numberOfRounds);
+    
     return 0;
 }
 
