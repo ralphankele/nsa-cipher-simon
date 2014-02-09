@@ -18,6 +18,7 @@
 
 #include "simon.h"
 #include <stdio.h>
+#include <time.h>
 
 uint64_t z[5][62] = {
     {1,1,1,1,1,0,1,0,0,0,1,0,0,1,0,1,0,1,1,0,0,0,0,1,1,1,0,0,1,1,0,1,1,1,1,1,0,1,0,0,0,1,0,0,1,0,1,0,1,1,0,0,0,0,1,1,1,0,0,1,1,0},
@@ -67,7 +68,7 @@ void encryptRounds(uint64_t* left, uint64_t* right, int rounds){
         tmp = *left;
         *left = *right ^ F(*left) ^ key[i];
         *right = tmp;
-        //printf("L: %llx, R: %llx \n", *left, *right);
+        //printf("key: %llx , L: %llx, R: %llx \n",key[i], *left, *right);
     }
 }
 
@@ -82,6 +83,18 @@ void decryptRounds(uint64_t* left, uint64_t* right, int rounds){
         *right = *left ^ F(*right) ^ key[ROUNDS-i-1];
         *left = tmp;
     }
+}
+
+void generateKey(){
+    srand (time(NULL));
+    for(int i = 0; i < KEY_WORDS; i++){
+        key[i] = rand() & WORD_MASK;
+    }
+    keySchedule();
+    
+    /*for(int i = 0; i < ROUNDS; i++){
+        printf("key: %llx \n", key[i]);
+    }*/
 }
 
 /*int test_encryption(uint64_t R, uint64_t L, uint64_t REF_ENC_R, uint64_t REF_ENC_L){

@@ -84,6 +84,7 @@ void decryptRounds(uint64_t* left, uint64_t* right, int rounds);
 //Helper Functions
 uint64_t S(uint64_t state, int distance);
 uint64_t F(uint64_t state);
+void generateKey();
 
 //Test-Functions
 int test_vectors();
